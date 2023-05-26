@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acrmitocode
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: acrmitocode
+  template:
+    metadata:
+      labels:
+        app: acrmitocode
+    spec:
+      containers:
+      - name: acrmitocode
+        image: acrmitocode.azurecr.io/acrmitocode:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8761
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: acrmitocode
+    k8s-app: acrmitocode
+  name: acrmitocode
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8761
+  type: LoadBalancer
+  selector:
+    app: acrmitocode
