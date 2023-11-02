@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: discovery-server
-        image: acrmitocode.azurecr.io/discovery-server:latest
+        image: mitocode-registry.azurecr.io/discovery-server:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8761
